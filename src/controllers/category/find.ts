@@ -1,22 +1,10 @@
 import { RequestHandler, Request, Response } from "express"
-import CategoryService from "../../services/category/category-service"
+import CategoryService from "../../services/category-service"
 
-export const findAll: RequestHandler = async (req: Request, res: Response) => {
+const find: RequestHandler = async (req: Request, res: Response) => {
     try {
-        res.send(await CategoryService.findAll());
-    }
-    catch (e) {
-        res.status(500).send({
-            message: "error occured"
-        });
-    }
-}
-
-export const findByNameEn: RequestHandler = async (req: Request, res: Response) => {
-    try {
-        console.log("query: " + req.query["nameEn"])
         const nameEn: any = req.query["nameEn"];
-        res.send(await CategoryService.findByNameEn(nameEn));
+        res.send(await CategoryService.find(nameEn));
     }
     catch (e) {
         res.status(500).send({
@@ -24,3 +12,5 @@ export const findByNameEn: RequestHandler = async (req: Request, res: Response) 
         });
     }
 }
+
+export default find

@@ -21,11 +21,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(routes);
 
-// simple route
-app.get("/", (req, res) => {
-    res.json({ message: "Welcome to bezkoder application." });
-});
-
 mongoose.connect(`mongodb+srv://${DB_ACCOUNT}:${DB_PASSWORD}@${DB_CLUSTER}/${DB_NAME}?retryWrites=true&w=majority`, {
     useNewUrlParser: true, useUnifiedTopology: true
 }).then(() => console.log("connected to the database!")).catch(err => {

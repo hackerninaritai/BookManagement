@@ -1,0 +1,5188 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API Service",
+    "version": "1.0.0",
+    "description": "API Service endpoints",
+    "contact": {
+      "email": "ptnghia1@cmc.com.vn",
+      "name": "Nathan"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8082/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "team",
+      "description": "Teams APIs"
+    },
+    {
+      "name": "member",
+      "description": "Members APIs"
+    },
+    {
+      "name": "organization",
+      "description": "Organizations APIs"
+    }
+  ],
+  "paths": {
+    "/track/blNumber": {
+      "get": {
+        "tags": [
+          "track-shipment-controller"
+        ],
+        "summary": "Track shipment by BL Number or Lading number",
+        "operationId": "trackByBLBNumber",
+        "parameters": [
+          {
+            "name": "carrierNo",
+            "in": "query",
+            "description": "Input Carrier",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bol",
+            "in": "query",
+            "description": "Enter bill of lading number",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrackShipmentResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/track/container": {
+      "get": {
+        "tags": [
+          "track-shipment-controller"
+        ],
+        "summary": "Track shipment by container",
+        "operationId": "trackByContainer",
+        "parameters": [
+          {
+            "name": "carrierNo",
+            "in": "query",
+            "description": "Input Carrier",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerNo",
+            "in": "query",
+            "description": "Enter container number",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fromOrigin",
+            "in": "query",
+            "description": "Vessel route with from Origin, search by country or Port",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "toDestination",
+            "in": "query",
+            "description": "Vessel route with destination, search by country or Port",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrackShipmentResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/track/bookingNo": {
+      "get": {
+        "tags": [
+          "track-shipment-controller"
+        ],
+        "summary": "Track shipment by Booking Number",
+        "operationId": "trackByBookingNo",
+        "parameters": [
+          {
+            "name": "carrierNo",
+            "in": "query",
+            "description": "Input Carrier",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "boc",
+            "in": "query",
+            "description": "Enter booking confirmation number",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrackShipmentResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vessel-schedule/bookingNo": {
+      "get": {
+        "tags": [
+          "vessel-schedule-controller"
+        ],
+        "summary": "Track shipment by Booking Number",
+        "operationId": "findVesselSchedule",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "query",
+            "description": "Vessel route origin",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "destination",
+            "in": "query",
+            "description": "Vessel route destination",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "departure",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "arrival",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "nearestDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "dateRange",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pickUpDate",
+            "in": "query",
+            "description": "Cargo pickup date",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "deliveryDate",
+            "in": "query",
+            "description": "Target delivery date",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "providers",
+            "in": "query",
+            "description": "Service providers: Mitsui/CMA/CMG/Cosco/Maersk Line/One",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "duration",
+            "in": "query",
+            "description": "Duration ex: 8-34",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "desPort",
+            "in": "query",
+            "description": "Destination Port: INMAA/INCHA/INBRLR/INYUR/INBOM",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MyArray"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teams/search": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Search team by name",
+        "operationId": "team-search",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string",
+              "default": "business"
+            },
+            "description": "String containing full name or partial name of the team"
+          },
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Id of the team"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "string",
+              "default": "0"
+            },
+            "description": "Current Page, Current Page must start from 0"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "string",
+              "default": "9"
+            },
+            "description": "Number of item per page"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "default": "name_asc"
+            },
+            "description": "Sort By 1 Field, example: 'name_' for dsc or 'name_asc' for asc by name field"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "teams": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TeamSearchSchema"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/teams/list": {
+      "get": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Search team by name",
+        "operationId": "team-list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "orgId",
+            "schema": {
+              "type": "string",
+              "default": "5f72f38f861bc41058a40567"
+            },
+            "description": "Id of the team"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "string",
+              "default": "0"
+            },
+            "description": "Current Page, Current Page must start from 0"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "string",
+              "default": "9"
+            },
+            "description": "Number of item per page"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "default": "name_asc"
+            },
+            "description": "Sort By 1 Field, example: 'name_' for dsc or 'name_asc' for asc by name field"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamOrgSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/teams/create": {
+      "post": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Add a team to the database",
+        "operationId": "team-add",
+        "requestBody": {
+          "description": "Create a new team",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeamSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "new Team has been added!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/true"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/teams/update": {
+      "put": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Update a team to the database",
+        "operationId": "team-update",
+        "requestBody": {
+          "description": "Update a team",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeamUpdateSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Team has been updated!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamUpdateSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/teams/remove": {
+      "post": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Delete a team",
+        "operationId": "team-delete",
+        "requestBody": {
+          "description": "Delete a team",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeamDeleteSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Team has been deleted!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamUpdateSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/organizations/create": {
+      "post": {
+        "tags": [
+          "organization"
+        ],
+        "summary": "Add a organization to the database",
+        "operationId": "organization-add",
+        "requestBody": {
+          "description": "Create a new organization",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrgCreateNewSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "new Organization has been added!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrgCreateNewSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/organizations/update": {
+      "put": {
+        "tags": [
+          "organization"
+        ],
+        "summary": "Update an organization to the database",
+        "operationId": "organization-update",
+        "requestBody": {
+          "description": "Update a organization",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrgUpdateSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Organization has been updated!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrgUpdateSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/organizations/remove": {
+      "post": {
+        "tags": [
+          "organization"
+        ],
+        "summary": "Delete an organization",
+        "operationId": "organization-delete",
+        "requestBody": {
+          "description": "Delete a organization",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrgDeleteSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Organization has been deleted!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrgUpdateSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/organizations/search": {
+      "get": {
+        "tags": [
+          "organization"
+        ],
+        "summary": "Search organization by name",
+        "operationId": "organization-search",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string",
+              "default": "Trames"
+            }
+          },
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Id of the organization"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "string",
+              "default": "0"
+            },
+            "description": "Current Page, Current Page must start from 0"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "string",
+              "default": "9"
+            },
+            "description": "Number of item per page"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "default": "name_asc"
+            },
+            "description": "Sort By 1 Field, example: 'name_' for dsc or 'name_asc' for asc by name field"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "organizations": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/OrgSearchSchema"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/members/search": {
+      "get": {
+        "tags": [
+          "member"
+        ],
+        "summary": "Search members EQUAL by OrgId, TeamId and LIKE by name, email",
+        "operationId": "member-search",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "String containing the id(s) of member"
+          },
+          {
+            "in": "query",
+            "name": "orgId",
+            "schema": {
+              "type": "string",
+              "default": "5f6971f34e441f0bccb13afa"
+            },
+            "description": "String containing the Organization Id"
+          },
+          {
+            "in": "query",
+            "name": "teamId",
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "description": "String containing the Team Id"
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string",
+              "default": "Yoshida"
+            },
+            "description": "String containing the part of name"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "String containing the part of email or many exactly email"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "string",
+              "default": "0"
+            },
+            "description": "Current Page, Current Page must start from 0"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "string",
+              "default": "9"
+            },
+            "description": "Number of item per page"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Sort By 1 Field, example: 'name_' for dsc or 'name_asc' for asc by name field"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberListSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/members/{id}": {
+      "get": {
+        "tags": [
+          "member"
+        ],
+        "summary": "Detail of member who has {id}",
+        "operationId": "member-detail",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "5f6971f34e441f0bccb13afa"
+            },
+            "description": "String containing the id of member"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Member detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/members/list/org": {
+      "get": {
+        "tags": [
+          "member"
+        ],
+        "summary": "List members of each member's org",
+        "operationId": "member-list-org",
+        "parameters": [
+          {
+            "name": "memId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "5f7302b886699310d4d2163a"
+            },
+            "description": "String containing the id(s) of member"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "string",
+              "default": "0"
+            },
+            "description": "Current Page, Current Page must start from 0"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "string",
+              "default": "9"
+            },
+            "description": "Number of item per page"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Sort By 1 Field, example: 'name_' for dsc or 'name_asc' for asc by name field"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberListOrgSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/members/list/team": {
+      "get": {
+        "tags": [
+          "member"
+        ],
+        "summary": "List members of each member's team",
+        "operationId": "member-list-team",
+        "parameters": [
+          {
+            "name": "memId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "5f7302b886699310d4d2163a"
+            },
+            "description": "String containing the id(s) of member"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "string",
+              "default": "0"
+            },
+            "description": "Current Page, Current Page must start from 0"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "string",
+              "default": "9"
+            },
+            "description": "Number of item per page"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Sort By 1 Field, example: 'name_' for dsc or 'name_asc' for asc by name field"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberListTeamSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/templates/search": {
+      "get": {
+        "tags": [
+          "templates"
+        ],
+        "summary": "Search templates by name",
+        "operationId": "template-search",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "String containing the id(s) of templates"
+          },
+          {
+            "in": "query",
+            "name": "templateId",
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "description": "String containing the template Id"
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string",
+              "default": "Direct FCL"
+            },
+            "description": "String containing the part of name"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "string",
+              "default": "0"
+            },
+            "description": "Current Page, Current Page must start from 0"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "string",
+              "default": "9"
+            },
+            "description": "Number of item per page"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Sort By 1 Field, example: 'name_' for dsc or 'name_asc' for asc by name field"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Template search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "page": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TemplateListSchema"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/templates/add": {
+      "post": {
+        "tags": [
+          "templates"
+        ],
+        "summary": "Save a template to the database",
+        "operationId": "template-add",
+        "requestBody": {
+          "description": "Create a new template",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TemplateAddSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "a new template has been added!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/templates/remove": {
+      "post": {
+        "tags": [
+          "templates"
+        ],
+        "summary": "Remove a template",
+        "operationId": "template-delete",
+        "requestBody": {
+          "description": "Remove a template",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TemplateDeleteSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Template has been deleted!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateUpdateSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/templates/update": {
+      "put": {
+        "tags": [
+          "templates"
+        ],
+        "summary": "Update a templates to the database",
+        "operationId": "templates-update",
+        "requestBody": {
+          "description": "Update a templates",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TemplateUpdateSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "template has been updated!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateUpdateSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/active-shipment/:id/add-section": {
+      "post": {
+        "tags": [
+          "active-shipment"
+        ],
+        "summary": "Add new section into active shipment details",
+        "operationId": "active-shipment-add-section",
+        "requestBody": {
+          "description": "Create a new section",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SectionAddSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "a new template has been added!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/activeShipmentSectionSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/active-shipment/:id/add-task": {
+      "post": {
+        "tags": [
+          "active-shipment"
+        ],
+        "summary": "Add new task into active shipment details",
+        "operationId": "active-shipment-add-task",
+        "requestBody": {
+          "description": "Create a new task",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addNewTaskSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "New task has been created!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/taskSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/active-shipment/{id}/shipment-information": {
+      "get": {
+        "tags": [
+          "active-shipment"
+        ],
+        "summary": "Get shipment information",
+        "operationId": "active-shipment-shipment-info",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "5f7302b886699310d4d2163a"
+            },
+            "description": "String containing the id(s) of active-shipment"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "page": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/shipmentDetailsSchema"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/active-shipment/{id}/task-management": {
+      "get": {
+        "tags": [
+          "active-shipment"
+        ],
+        "summary": "Get shipment task management",
+        "operationId": "active-shipment-task-management",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "5f7302b886699310d4d2163a"
+            },
+            "description": "String containing the id(s) of active-shipment"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/taskManagementSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/section/create": {
+      "post": {
+        "tags": [
+          "section"
+        ],
+        "summary": "Add a section to the database",
+        "operationId": "section-add",
+        "requestBody": {
+          "description": "Create a new section",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SectionSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "new section has been added!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SectionSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/section/update": {
+      "put": {
+        "tags": [
+          "section"
+        ],
+        "summary": "Update a section to the database",
+        "operationId": "section-update",
+        "requestBody": {
+          "description": "Update a section",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SectionUpdateSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Section has been updated!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SectionUpdateSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/section/remove": {
+      "post": {
+        "tags": [
+          "section"
+        ],
+        "summary": "Remove a section",
+        "operationId": "section-delete",
+        "requestBody": {
+          "description": "Remove a section",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SectionDeleteSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Section has been deleted!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SectionUpdateSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/members/add/org": {
+      "post": {
+        "tags": [
+          "member"
+        ],
+        "summary": "Add member to a org",
+        "operationId": "member-add-org",
+        "requestBody": {
+          "description": "When invited a member to a Org, will push the info of org and role into member",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MemberAddOrgSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Member has invited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/true"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/members/add/team": {
+      "post": {
+        "tags": [
+          "member"
+        ],
+        "summary": "Add member to a team",
+        "operationId": "member-add-team",
+        "requestBody": {
+          "description": "When invited a member to a Team, will push the info of Team and role into member",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MemberAddTeamSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Member has invited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/true"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/members/update": {
+      "put": {
+        "tags": [
+          "member"
+        ],
+        "summary": "Update a member",
+        "operationId": "member-update",
+        "requestBody": {
+          "description": "Update detail or remove org or team of member",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MemberSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Member has updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/issues/search": {
+      "get": {
+        "tags": [
+          "issue"
+        ],
+        "summary": "Search issues by shipment Id and status",
+        "operationId": "issue-search",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "shipmentId",
+            "schema": {
+              "type": "string",
+              "default": "5f7302b886699310d4d2163a"
+            },
+            "description": "String is the id of shipment"
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string",
+              "default": "open"
+            },
+            "description": "status of issue"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": "0"
+            },
+            "description": "Current Page, Current Page must start from 0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": "30"
+            },
+            "description": "Number of item per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssuesListSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/issues/create": {
+      "post": {
+        "tags": [
+          "issue"
+        ],
+        "summary": "Add a issue to the database",
+        "operationId": "issue-create",
+        "requestBody": {
+          "description": "new issue of shipment",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IssuesCreateSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Issue was created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssuesSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/issues/update": {
+      "patch": {
+        "tags": [
+          "issue"
+        ],
+        "summary": "update field of a issue to the database",
+        "operationId": "issue-update",
+        "requestBody": {
+          "description": "new issue of shipment",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IssuesUpdateSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Issue was updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssuesSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/documents/task/search": {
+      "get": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "List all the document tasks of a shipment",
+        "operationId": "documents-task-search",
+        "parameters": [
+          {
+            "name": "shipmentId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "5f7302b886699310d4d2163a"
+            },
+            "description": "Id of the shipment"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "default": 0
+            },
+            "description": "The page number"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "default": 5
+            },
+            "description": "The number of records per page"
+          },
+          {
+            "name": "uploadTimeFrom",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Time uploaded (lower boundary) for filtering"
+          },
+          {
+            "name": "uploadTimeTo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Time uploaded (upper boundary) for filtering"
+          },
+          {
+            "name": "uploadedBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "An array of ids, each corresponding to an uploader"
+          },
+          {
+            "name": "assignee",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "An array of ids, each corresponding to an assignee"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document tasks successfully fetched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "currentPage": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "totalPage": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DocumentTaskListSchema"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/documents/search": {
+      "get": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "List all the documents of a task",
+        "operationId": "documents-search",
+        "parameters": [
+          {
+            "name": "documentTaskId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "5f7302b886699310d4d2163a"
+            },
+            "description": "Id of the document task"
+          },
+          {
+            "name": "uploadTimeFrom",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Time uploaded (lower boundary) for filtering"
+          },
+          {
+            "name": "uploadTimeTo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Time uploaded (upper boundary) for filtering"
+          },
+          {
+            "name": "uploadedBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "An array of ids, each corresponding to an uploader"
+          },
+          {
+            "name": "assignee",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "An array of ids, each corresponding to an assignee"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Documents successfully fetched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DocumentListSchema"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/documents/add": {
+      "post": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Add documents to the database",
+        "operationId": "documents-add",
+        "requestBody": {
+          "description": "New documents to add",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/DocumentAddSchema"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Document(s) successfully added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DocumentSchema"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/documents/remove": {
+      "delete": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Remove documents from the database",
+        "operationId": "documents-remove",
+        "requestBody": {
+          "description": "An array of ids, each corresponding to a document to be deleted",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "example": "5f6971f34e441f0bccb13afa"
+                },
+                "description": "An array of ids, each corresponding to a document to be deleted"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Document(s) successfully deleted"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DraftBookSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "The Hitchhiker's Guide to the Galaxy"
+          },
+          "author": {
+            "type": "string",
+            "example": "Douglas Adams"
+          }
+        }
+      },
+      "BookSchema": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DraftBookSchema"
+          }
+        ],
+        "type": "object"
+      },
+      "TeamSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Business"
+          },
+          "description": {
+            "type": "string",
+            "example": "Team for handling the partners business"
+          },
+          "orgId": {
+            "type": "object",
+            "example": "5f6971f34e441f0bccb13afa"
+          },
+          "members": {
+            "type": "array",
+            "example": [
+              {
+                "email": "yohiko@gmail.com",
+                "teamRoleName": "Admin"
+              },
+              {
+                "email": "kingofrap@gmail.com",
+                "teamRoleName": "Member"
+              }
+            ]
+          }
+        }
+      },
+      "TeamUpdateSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "object",
+            "example": "5f5ef6d46dbd2905eeb2172c"
+          },
+          "name": {
+            "type": "string",
+            "example": "Business"
+          },
+          "description": {
+            "type": "string",
+            "example": "Team for handling the partners business"
+          },
+          "orgId": {
+            "type": "object",
+            "example": "5d7224d3b40b1a1a046697dd"
+          }
+        }
+      },
+      "TeamDeleteSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "object",
+            "example": "5f7149c776882a05eb623243"
+          }
+        }
+      },
+      "TeamSearchSchema": {
+        "type": "object",
+        "properties": {
+          "currentPage": {
+            "type": "number",
+            "example": 0
+          },
+          "totalPage": {
+            "type": "number",
+            "example": 1
+          },
+          "items": {
+            "type": "array",
+            "example": [
+              {
+                "_id": "5f6971f34e441f0bccb13afa",
+                "name": "Business",
+                "description": "The team handle business",
+                "orgId": "5f6971f34e441f0bccb13afa"
+              }
+            ]
+          }
+        }
+      },
+      "TeamOrgSchema": {
+        "type": "object",
+        "properties": {
+          "currentPage": {
+            "type": "number",
+            "example": 0
+          },
+          "totalPage": {
+            "type": "number",
+            "example": 1
+          },
+          "items": {
+            "type": "array",
+            "example": [
+              {
+                "_id": "5f7578090b033cf026d99451",
+                "name": "team-nghia3",
+                "description": "Team for handling the partners business",
+                "members": [
+                  {
+                    "_id": "5f7302b886699310d4d2163a",
+                    "name": "Yoshida Mikihiko",
+                    "email": "yohiko@gmail.com",
+                    "avatar": "this is the url"
+                  },
+                  {
+                    "_id": "5f730d4786699310d4d2163c",
+                    "name": "Shiba Tatsuya",
+                    "email": "shisuy@gmail.com",
+                    "avatar": "empty"
+                  },
+                  {
+                    "_id": "5f7ec8d3cc3c3d18106ae48c",
+                    "name": "cymmcabcdeZXC@gmail.com",
+                    "email": "cymmcabcdeZXC@gmail.com",
+                    "avatar": "empty"
+                  },
+                  {
+                    "_id": "5f8430b7ea49a537d8e4c45e",
+                    "name": "kingofrap@gmail.com",
+                    "email": "kingofrap@gmail.com",
+                    "avatar": "empty"
+                  }
+                ],
+                "orgInfo": [
+                  {
+                    "name": "Trames pte ptd",
+                    "logo": "empty",
+                    "orgId": "5f72f38f861bc41058a40567"
+                  }
+                ],
+                "totalMembers": 4
+              },
+              {
+                "_id": "5f75780e0b033cf026d99454",
+                "name": "team-nghia4",
+                "description": "Team for handling the partners business",
+                "members": [
+                  {
+                    "_id": "5f7302b886699310d4d2163a",
+                    "name": "Yoshida Mikihiko",
+                    "email": "yohiko@gmail.com",
+                    "avatar": "this is the url"
+                  },
+                  {
+                    "_id": "5f730d4786699310d4d2163c",
+                    "name": "Shiba Tatsuya",
+                    "email": "shisuy@gmail.com",
+                    "avatar": "empty"
+                  },
+                  {
+                    "_id": "5f7ec8d3cc3c3d18106ae48c",
+                    "name": "cymmcabcdeZXC@gmail.com",
+                    "email": "cymmcabcdeZXC@gmail.com",
+                    "avatar": "empty"
+                  },
+                  {
+                    "_id": "5f8430b7ea49a537d8e4c45e",
+                    "name": "kingofrap@gmail.com",
+                    "email": "kingofrap@gmail.com",
+                    "avatar": "empty"
+                  }
+                ],
+                "orgInfo": [
+                  {
+                    "name": "Trames pte ptd",
+                    "logo": "empty",
+                    "orgId": "5f72f38f861bc41058a40567"
+                  }
+                ],
+                "totalMembers": 4
+              }
+            ]
+          }
+        }
+      },
+      "MemberSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "object",
+            "example": "5f6971f34e441f0bccb13afa"
+          },
+          "name": {
+            "type": "string",
+            "example": "Yoshida Mikihiko"
+          },
+          "email": {
+            "type": "string",
+            "example": "cymmc@gmail.com"
+          },
+          "contactNumber": {
+            "type": "string",
+            "example": "0353718878"
+          },
+          "status": {
+            "type": "string",
+            "example": "Active"
+          },
+          "orgRoles": {
+            "type": "object",
+            "example": [
+              {
+                "id": "5f6971f34e441f0bccb13afa",
+                "roleName": "Member"
+              }
+            ]
+          },
+          "teamRoles": {
+            "type": "object",
+            "example": []
+          },
+          "base": {
+            "type": "object",
+            "example": {
+              "createdBy": "James Doe",
+              "createdDate": 1602144467956,
+              "updatedBy": "James Doe",
+              "updatedDate": 1602144467956,
+              "delete": false
+            }
+          }
+        }
+      },
+      "MemberListSchema": {
+        "type": "object",
+        "properties": {
+          "currentPage": {
+            "type": "number",
+            "example": 0
+          },
+          "totalPage": {
+            "type": "number",
+            "example": 1
+          },
+          "items": {
+            "type": "array",
+            "example": [
+              {
+                "_id": "5f6971f34e441f0bccb13afa",
+                "name": "Yoshida",
+                "email": "cymcc@gmail.com",
+                "contactNumber": "0123456789",
+                "status": "Active",
+                "orgRoles": [
+                  {
+                    "id": "5f6971f34e441f0bccb13afa",
+                    "roleName": "Member"
+                  }
+                ],
+                "teamRoles": [],
+                "totalTeams": 0,
+                "base": {}
+              }
+            ]
+          }
+        }
+      },
+      "MemberAddOrgSchema": {
+        "type": "object",
+        "properties": {
+          "orgId": {
+            "type": "string",
+            "example": "5f72f38f861bc41058a40567"
+          },
+          "teamId": {
+            "type": "array",
+            "example": [
+              "5f7578090b033cf026d99451",
+              "5f75780e0b033cf026d99454"
+            ]
+          },
+          "members": {
+            "type": "array",
+            "example": [
+              {
+                "email": "yohiko@gmail.com",
+                "teamRoleName": "Admin",
+                "orgRoleName": "Admin"
+              },
+              {
+                "email": "kingofrap@gmail.com",
+                "teamRoleName": "Member",
+                "orgRoleName": "Admin"
+              },
+              {
+                "email": "shisuy@gmail.com",
+                "teamRoleName": "Member",
+                "orgRoleName": "Member"
+              }
+            ]
+          }
+        }
+      },
+      "MemberAddTeamSchema": {
+        "type": "object",
+        "properties": {
+          "teamId": {
+            "type": "array",
+            "example": [
+              "5f7578090b033cf026d99451",
+              "5f75780e0b033cf026d99454"
+            ]
+          },
+          "members": {
+            "type": "array",
+            "example": [
+              {
+                "email": "yohiko@gmail.com",
+                "teamRoleName": "Admin"
+              },
+              {
+                "email": "cymmcabcdeZXC@gmail.com",
+                "teamRoleName": "Member"
+              }
+            ]
+          }
+        }
+      },
+      "MemberListOrgSchema": {
+        "type": "object",
+        "properties": {
+          "currentPage": {
+            "type": "number",
+            "example": 0
+          },
+          "totalPage": {
+            "type": "number",
+            "example": 1
+          },
+          "items": {
+            "type": "array",
+            "example": [
+              {
+                "_id": "5f72f3b9861bc41058a40569",
+                "members": [
+                  {
+                    "_id": "5f7302b886699310d4d2163a",
+                    "avatar": "this is the url"
+                  }
+                ],
+                "orgInfo": [
+                  {
+                    "name": "Long test 1",
+                    "logo": "empty"
+                  }
+                ],
+                "totalTeams": 1,
+                "totalMembers": 1,
+                "teams": [
+                  {
+                    "id": "5f87ba33d120cc3b282f06fb",
+                    "name": "team-nghia6"
+                  }
+                ]
+              },
+              {
+                "_id": "5f72f38f861bc41058a40567",
+                "members": [
+                  {
+                    "_id": "5f7302b886699310d4d2163a",
+                    "avatar": "this is the url"
+                  },
+                  {
+                    "_id": "5f730d4786699310d4d2163c",
+                    "avatar": "empty"
+                  },
+                  {
+                    "_id": "5f7ec8d3cc3c3d18106ae48c",
+                    "avatar": "empty"
+                  },
+                  {
+                    "_id": "5f8430b7ea49a537d8e4c45e",
+                    "avatar": "empty"
+                  }
+                ],
+                "orgInfo": [
+                  {
+                    "name": "Trames pte ptd",
+                    "logo": "empty"
+                  }
+                ],
+                "totalTeams": 7,
+                "totalMembers": 4,
+                "teams": [
+                  {
+                    "id": "5f73fcb751021b04bc93edf5",
+                    "name": "Long test 2"
+                  },
+                  {
+                    "id": "5f740c92c59aa5070985949f",
+                    "name": "Long test 44"
+                  },
+                  {
+                    "id": "5f75580d9b1598cf333ceb7d",
+                    "name": "team-nghia1"
+                  },
+                  {
+                    "id": "5f7578020b033cf026d9944e",
+                    "name": "team-nghia2"
+                  },
+                  {
+                    "id": "5f7578090b033cf026d99451",
+                    "name": "team-nghia3"
+                  },
+                  {
+                    "id": "5f75780e0b033cf026d99454",
+                    "name": "team-nghia4"
+                  },
+                  {
+                    "id": "5f7578120b033cf026d99457",
+                    "name": "team-nghia5"
+                  }
+                ]
+              },
+              {
+                "_id": "5f740543192fd20603a31fd8",
+                "members": [
+                  {
+                    "_id": "5f7302b886699310d4d2163a",
+                    "avatar": "this is the url"
+                  }
+                ],
+                "orgInfo": [
+                  {
+                    "name": "Long test 3",
+                    "logo": "empty"
+                  }
+                ],
+                "totalTeams": 0,
+                "totalMembers": 1,
+                "teams": []
+              }
+            ]
+          }
+        }
+      },
+      "MemberListTeamSchema": {
+        "type": "object",
+        "properties": {
+          "currentPage": {
+            "type": "number",
+            "example": 0
+          },
+          "totalPage": {
+            "type": "number",
+            "example": 1
+          },
+          "items": {
+            "type": "array",
+            "example": [
+              {
+                "_id": "5f7578090b033cf026d99451",
+                "members": [
+                  {
+                    "_id": "5f7302b886699310d4d2163a",
+                    "name": "Yoshida Mikihiko",
+                    "email": "yohiko@gmail.com",
+                    "avatar": "this is the url"
+                  },
+                  {
+                    "_id": "5f730d4786699310d4d2163c",
+                    "name": "Shiba Tatsuya",
+                    "email": "shisuy@gmail.com",
+                    "avatar": "empty"
+                  },
+                  {
+                    "_id": "5f7ec8d3cc3c3d18106ae48c",
+                    "name": "cymmcabcdeZXC@gmail.com",
+                    "email": "cymmcabcdeZXC@gmail.com",
+                    "avatar": "empty"
+                  },
+                  {
+                    "_id": "5f8430b7ea49a537d8e4c45e",
+                    "name": "kingofrap@gmail.com",
+                    "email": "kingofrap@gmail.com",
+                    "avatar": "empty"
+                  }
+                ],
+                "teamInfo": [
+                  {
+                    "name": "team-nghia3",
+                    "description": "Team for handling the partners business",
+                    "orgId": "5f72f38f861bc41058a40567"
+                  }
+                ],
+                "totalMembers": 4,
+                "orgName": "Trames pte ptd",
+                "orgLogo": "empty"
+              },
+              {
+                "_id": "5f75780e0b033cf026d99454",
+                "members": [
+                  {
+                    "_id": "5f7302b886699310d4d2163a",
+                    "name": "Yoshida Mikihiko",
+                    "email": "yohiko@gmail.com",
+                    "avatar": "this is the url"
+                  },
+                  {
+                    "_id": "5f730d4786699310d4d2163c",
+                    "name": "Shiba Tatsuya",
+                    "email": "shisuy@gmail.com",
+                    "avatar": "empty"
+                  },
+                  {
+                    "_id": "5f7ec8d3cc3c3d18106ae48c",
+                    "name": "cymmcabcdeZXC@gmail.com",
+                    "email": "cymmcabcdeZXC@gmail.com",
+                    "avatar": "empty"
+                  },
+                  {
+                    "_id": "5f8430b7ea49a537d8e4c45e",
+                    "name": "kingofrap@gmail.com",
+                    "email": "kingofrap@gmail.com",
+                    "avatar": "empty"
+                  }
+                ],
+                "teamInfo": [
+                  {
+                    "name": "team-nghia4",
+                    "description": "Team for handling the partners business",
+                    "orgId": "5f72f38f861bc41058a40567"
+                  }
+                ],
+                "totalMembers": 4,
+                "orgName": "Trames pte ptd",
+                "orgLogo": "empty"
+              }
+            ]
+          }
+        }
+      },
+      "true": {
+        "type": "boolean",
+        "example": true
+      },
+      "OrgCreateNewSchema": {
+        "type": "object",
+        "properties": {
+          "logo": {
+            "type": "string",
+            "example": "this is the url to img"
+          },
+          "name": {
+            "type": "string",
+            "example": "Trames pte ptd"
+          },
+          "contactEmail": {
+            "type": "string",
+            "example": "trames@example.com"
+          },
+          "contactPhoneNumber": {
+            "type": "number",
+            "example": "0258742359"
+          },
+          "companyAddress": {
+            "type": "string",
+            "example": "2333 Scenic Way"
+          },
+          "country": {
+            "type": "string",
+            "example": "Singapore"
+          },
+          "postalCode": {
+            "type": "string",
+            "example": "S2V 3X9"
+          },
+          "companyRegisteredAddress": {
+            "type": "string",
+            "example": "247 Primrose St. Ravenna, OH 44266"
+          },
+          "registrationNumber": {
+            "type": "number",
+            "example": 122345
+          },
+          "companyTaxNumber": {
+            "type": "number",
+            "example": 984787674
+          },
+          "billingDetails": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cardName": {
+                  "type": "string",
+                  "example": "TRAMES PTE"
+                },
+                "cardNumber": {
+                  "type": "number",
+                  "example": 4234534565752345
+                },
+                "expiredDate": {
+                  "type": "number",
+                  "example": 34534645634
+                },
+                "cvv": {
+                  "type": "number",
+                  "example": 123
+                },
+                "primary": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "OrgUpdateSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "object",
+            "example": "5f6971f34e441f0bccb13afa"
+          },
+          "logo": {
+            "type": "string",
+            "example": "this is the url to the logo img"
+          },
+          "name": {
+            "type": "string",
+            "example": "Trames pte ptd"
+          },
+          "contactEmail": {
+            "type": "string",
+            "example": "trames@example.com"
+          },
+          "contactPhoneNumber": {
+            "type": "number",
+            "example": "0258742359"
+          },
+          "companyAddress": {
+            "type": "string",
+            "example": "2333 Scenic Way"
+          },
+          "country": {
+            "type": "string",
+            "example": "Singapore"
+          },
+          "postalCode": {
+            "type": "string",
+            "example": "S2V 3X9"
+          },
+          "companyRegisteredAddress": {
+            "type": "string",
+            "example": "247 Primrose St. Ravenna, OH 44266"
+          },
+          "registrationNumber": {
+            "type": "number",
+            "example": 122345
+          },
+          "companyTaxNumber": {
+            "type": "number",
+            "example": 984787674
+          },
+          "billingDetails": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "cardName": {
+                  "type": "string",
+                  "example": "TRAMES PTE"
+                },
+                "cardNumber": {
+                  "type": "number",
+                  "example": 4234534565752345
+                },
+                "expiredDate": {
+                  "type": "number",
+                  "example": 34534645634
+                },
+                "cvv": {
+                  "type": "number",
+                  "example": 123
+                },
+                "primary": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "OrgDeleteSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "object",
+            "example": "5f7149c776882a05eb623243"
+          }
+        }
+      },
+      "OrgSearchSchema": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OrgCreateNewSchema"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "5f6971f34e441f0bccb13afa"
+          }
+        }
+      },
+      "TemplateAddSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "new template task"
+          },
+          "type": {
+            "type": "string",
+            "example": "new template type"
+          },
+          "section": {
+            "type": "string",
+            "example": "Booking section details"
+          },
+          "adjustTime": {
+            "type": "boolean",
+            "example": true
+          },
+          "adjustDays": {
+            "type": "number",
+            "example": "2"
+          },
+          "adjustType": {
+            "type": "string",
+            "example": "day"
+          },
+          "eventBase": {
+            "type": "string",
+            "example": "Booking confirmation"
+          },
+          "templateRoles": {
+            "type": "array",
+            "example": [
+              {
+                "id": "5f6971f34e441f0bccb13afa",
+                "roleName": "Member"
+              }
+            ]
+          },
+          "base": {
+            "type": "object",
+            "example": {
+              "createdBy": "stux",
+              "updatedBy": "stux"
+            }
+          }
+        }
+      },
+      "TemplateUpdateSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "object",
+            "example": "5f6971f34e441f0bccb13afa"
+          },
+          "name": {
+            "type": "string",
+            "example": "new template task"
+          },
+          "type": {
+            "type": "string",
+            "example": "new template type"
+          },
+          "section": {
+            "type": "string",
+            "example": "Booking section details"
+          },
+          "adjustTime": {
+            "type": "boolean",
+            "example": true
+          },
+          "adjustDays": {
+            "type": "number",
+            "example": "2"
+          },
+          "adjustType": {
+            "type": "string",
+            "example": "day"
+          },
+          "eventBase": {
+            "type": "string",
+            "example": "Booking confirmation"
+          },
+          "templateRoles": {
+            "type": "array",
+            "example": [
+              {
+                "id": "5f6971f34e441f0bccb13afa",
+                "roleName": "Member"
+              }
+            ]
+          },
+          "base": {
+            "type": "object",
+            "example": {
+              "createdBy": "stux",
+              "updatedBy": "stux"
+            }
+          }
+        }
+      },
+      "SectionSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Section name"
+          }
+        }
+      },
+      "SectionUpdateSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "object",
+            "example": "5f6971f34e441f0bccb13afb"
+          },
+          "name": {
+            "type": "string",
+            "example": "a new section"
+          },
+          "base": {
+            "type": "object",
+            "example": {
+              "createdBy": "stux",
+              "updatedBy": "stux"
+            }
+          }
+        }
+      },
+      "SectionDeleteSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "object",
+            "example": "5f7149c776882a05eb62324d"
+          }
+        }
+      },
+      "TemplateSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "object",
+            "example": "5f6971f34e441f0bccb13afa"
+          },
+          "name": {
+            "type": "string",
+            "example": "A new booking details"
+          },
+          "templateRoles": {
+            "type": "array",
+            "example": [
+              {
+                "id": "5f6971f34e441f0bccb13afa",
+                "roleName": "Shipper"
+              },
+              {
+                "id": "5f6971f34e441f0bccb13afc",
+                "roleName": "Traders"
+              },
+              {
+                "id": "5f6971f34e441f0bccb13afq",
+                "roleName": "Export Logistic"
+              }
+            ]
+          }
+        }
+      },
+      "TemplateDeleteSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "object",
+            "example": "5f7149c776882a05eb623823"
+          }
+        }
+      },
+      "TemplateListSchema": {
+        "type": "object",
+        "properties": {
+          "currentPage": {
+            "type": "number",
+            "example": 0
+          },
+          "totalPage": {
+            "type": "number",
+            "example": 1
+          },
+          "items": {
+            "type": "array",
+            "example": [
+              {
+                "_id": "5f6971f34e441f0bccb13afa",
+                "name": "Direct FCL shipment",
+                "templateRoles": [
+                  {
+                    "id": "5f6971f34e441f0bccb13afa",
+                    "roleName": "Shipment"
+                  },
+                  {
+                    "id": "5f6971f34e441f0bacb13afc",
+                    "roleName": "Logistic"
+                  }
+                ],
+                "journeys": [
+                  {
+                    "id": "5f6971f34e441f0bccb13afa",
+                    "journeyName": "Member"
+                  }
+                ],
+                "events": [
+                  {
+                    "id": "5f6971f34e441f0bccb13afa",
+                    "eventName": "event"
+                  }
+                ],
+                "documents": [
+                  {
+                    "id": "5f6971f34e441f0bccb13afa",
+                    "documentName": "documents"
+                  }
+                ],
+                "base": {}
+              }
+            ]
+          }
+        }
+      },
+      "ActiveShipmentSchema": {
+        "type": "object",
+        "properties": {
+          "shipmentDetails": {
+            "type": "object",
+            "properties": {
+              "shipmentRole": {
+                "type": "string",
+                "example": "Shipper"
+              },
+              "shipmentType": {
+                "type": "string",
+                "example": "FCL"
+              },
+              "originPort": {
+                "type": "string",
+                "example": "Singapore Port"
+              },
+              "destinationPort": {
+                "type": "string",
+                "example": "Jakarta Port"
+              },
+              "departureDate": {
+                "type": "number",
+                "example": 456489113
+              },
+              "arrivalDate": {
+                "type": "number",
+                "example": 456489113
+              },
+              "billOfLading": {
+                "type": "string",
+                "format": "binary",
+                "example": "binary"
+              }
+            }
+          },
+          "invitePartner": {
+            "type": "object",
+            "properties": {
+              "consignee": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "consignee": {
+                    "type": "object",
+                    "properties": {
+                      "emails": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "memberIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "teamIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "exportCustom": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 2
+                  },
+                  "emails": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "memberIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "teamIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "preFlightPartner": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 3
+                  },
+                  "emails": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "memberIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "teamIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "exportLogistics": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 4
+                  },
+                  "emails": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "memberIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "teamIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "importCustom": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 5
+                  },
+                  "emails": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "memberIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "teamIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "importLogistics": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 6
+                  },
+                  "emails": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "memberIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "teamIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "verifyDetails": {
+            "type": "object",
+            "properties": {
+              "bookingDetails": {
+                "type": "object",
+                "properties": {
+                  "bookingNo": {
+                    "type": "string",
+                    "example": "BN9873024"
+                  },
+                  "bookingRefNo": {
+                    "type": "string",
+                    "example": "BN9873024"
+                  },
+                  "agreementRefNo": {
+                    "type": "string",
+                    "example": "BN9873024"
+                  },
+                  "serviceMode": {
+                    "type": "string",
+                    "example": "CY/CY"
+                  },
+                  "incotern": {
+                    "type": "string",
+                    "example": "CPT"
+                  },
+                  "shipmentType": {
+                    "type": "string",
+                    "example": "FCL"
+                  },
+                  "bookingDate": {
+                    "type": "string",
+                    "example": "14 Jul 2020"
+                  },
+                  "BLNumber": {
+                    "type": "string",
+                    "example": "BN783472834"
+                  },
+                  "billOfLadingNo": {
+                    "type": "string",
+                    "example": "BRN9873024"
+                  },
+                  "carriageBy": {
+                    "type": "string",
+                    "example": "CY/CFS"
+                  },
+                  "remarks": {
+                    "type": "string",
+                    "example": "SHPR12345"
+                  },
+                  "bookingServiceProvider": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "Ben Clarke"
+                      },
+                      "companyName": {
+                        "type": "string",
+                        "example": "COSCO SHIPPING Pte ltd"
+                      },
+                      "city": {
+                        "type": "string",
+                        "example": "CHANGI NORTHWAY"
+                      },
+                      "state": {
+                        "type": "string",
+                        "example": "CHANGI NORTHWAY"
+                      },
+                      "country": {
+                        "type": "string",
+                        "example": "Singapore"
+                      },
+                      "postalCode": {
+                        "type": "string",
+                        "example": "498772"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "abc@yahoo.com"
+                      },
+                      "phoneNumber": {
+                        "example": "216-344-5458"
+                      }
+                    }
+                  },
+                  "bookingParty": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "Ben Clarke"
+                      },
+                      "companyName": {
+                        "type": "string",
+                        "example": "COSCO SHIPPING Pte ltd"
+                      },
+                      "city": {
+                        "type": "string",
+                        "example": "CHANGI NORTHWAY"
+                      },
+                      "state": {
+                        "type": "string",
+                        "example": "CHANGI NORTHWAY"
+                      },
+                      "country": {
+                        "type": "string",
+                        "example": "Singapore"
+                      },
+                      "postalCode": {
+                        "type": "string",
+                        "example": "498772"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "abc@yahoo.com"
+                      },
+                      "phoneNumber": {
+                        "type": "string",
+                        "example": "216-344-5458"
+                      }
+                    }
+                  }
+                }
+              },
+              "involvedPartyDetails": {
+                "type": "object",
+                "properties": {
+                  "shipper": {
+                    "type": "object",
+                    "properties": {
+                      "companyName": {
+                        "type": "string",
+                        "example": "Amazon Singapore pte ltd"
+                      },
+                      "companyAddress": {
+                        "type": "string",
+                        "example": "200 Bukit Timah"
+                      },
+                      "city": {
+                        "type": "string",
+                        "example": "Singapore"
+                      },
+                      "state": {
+                        "type": "string",
+                        "example": "Gaylang"
+                      },
+                      "postalCode": {
+                        "type": "string",
+                        "example": "10000"
+                      },
+                      "country": {
+                        "type": "string",
+                        "example": "Singapore"
+                      },
+                      "emailAddress": {
+                        "type": "string",
+                        "example": "trames@gmail.com"
+                      },
+                      "contactNumber": {
+                        "type": "string",
+                        "example": "12385464"
+                      }
+                    }
+                  },
+                  "consignee": {
+                    "type": "object",
+                    "properties": {
+                      "companyName": {
+                        "type": "string",
+                        "example": "Amazon Singapore pte ltd"
+                      },
+                      "companyAddress": {
+                        "type": "string",
+                        "example": "200 Bukit Timah"
+                      },
+                      "city": {
+                        "type": "string",
+                        "example": "Singapore"
+                      },
+                      "state": {
+                        "type": "string",
+                        "example": "Gaylang"
+                      },
+                      "postalCode": {
+                        "type": "string",
+                        "example": "10000"
+                      },
+                      "country": {
+                        "type": "string",
+                        "example": "Singapore"
+                      },
+                      "emailAddress": {
+                        "type": "string",
+                        "example": "trames@gmail.com"
+                      },
+                      "contactNumber": {
+                        "type": "string",
+                        "example": "12385464"
+                      }
+                    }
+                  },
+                  "forwardingAgent": {
+                    "type": "object",
+                    "properties": {
+                      "companyName": {
+                        "type": "string",
+                        "example": "Amazon Singapore pte ltd"
+                      },
+                      "companyAddress": {
+                        "type": "string",
+                        "example": "200 Bukit Timah"
+                      },
+                      "city": {
+                        "type": "string",
+                        "example": "Singapore"
+                      },
+                      "state": {
+                        "type": "string",
+                        "example": "Gaylang"
+                      },
+                      "postalCode": {
+                        "type": "string",
+                        "example": "10000"
+                      },
+                      "country": {
+                        "type": "string",
+                        "example": "Singapore"
+                      },
+                      "emailAddress": {
+                        "type": "string",
+                        "example": "trames@gmail.com"
+                      },
+                      "contactNumber": {
+                        "type": "string",
+                        "example": "12385464"
+                      }
+                    }
+                  },
+                  "notifyParty": {
+                    "type": "object",
+                    "properties": {
+                      "companyName": {
+                        "type": "string",
+                        "example": "Amazon Singapore pte ltd"
+                      },
+                      "companyAddress": {
+                        "type": "string",
+                        "example": "200 Bukit Timah"
+                      },
+                      "city": {
+                        "type": "string",
+                        "example": "Singapore"
+                      },
+                      "state": {
+                        "type": "string",
+                        "example": "Gaylang"
+                      },
+                      "postalCode": {
+                        "type": "string",
+                        "example": "10000"
+                      },
+                      "country": {
+                        "type": "string",
+                        "example": "Singapore"
+                      },
+                      "emailAddress": {
+                        "type": "string",
+                        "example": "trames@gmail.com"
+                      },
+                      "contactNumber": {
+                        "type": "string",
+                        "example": "12385464"
+                      }
+                    }
+                  },
+                  "forRelease": {
+                    "type": "object",
+                    "properties": {
+                      "companyName": {
+                        "type": "string",
+                        "example": "Amazon Singapore pte ltd"
+                      },
+                      "companyAddress": {
+                        "type": "string",
+                        "example": "200 Bukit Timah"
+                      },
+                      "city": {
+                        "type": "string",
+                        "example": "Singapore"
+                      },
+                      "state": {
+                        "type": "string",
+                        "example": "Gaylang"
+                      },
+                      "postalCode": {
+                        "type": "string",
+                        "example": "10000"
+                      },
+                      "country": {
+                        "type": "string",
+                        "example": "Singapore"
+                      },
+                      "emailAddress": {
+                        "type": "string",
+                        "example": "trames@gmail.com"
+                      },
+                      "contactNumber": {
+                        "type": "string",
+                        "example": "12385464"
+                      }
+                    }
+                  }
+                }
+              },
+              "vesselRouteInfo": {
+                "type": "object",
+                "properties": {
+                  "vesselName": {
+                    "type": "string",
+                    "example": "ET3489234"
+                  },
+                  "voyage": {
+                    "type": "string",
+                    "example": "Jurney"
+                  },
+                  "imo": {
+                    "type": "string",
+                    "example": "234834575PT"
+                  },
+                  "placeReceipt": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "placeDelivery": {
+                    "type": "string",
+                    "example": "Korea"
+                  },
+                  "carrierName": {
+                    "type": "string",
+                    "example": "COSCO SHIPPING"
+                  },
+                  "SCACCode": {
+                    "type": "string",
+                    "example": "COSU"
+                  },
+                  "originPort": {
+                    "type": "string",
+                    "example": "Singapore port"
+                  },
+                  "originPortCode": {
+                    "type": "string",
+                    "example": "123472487AA"
+                  },
+                  "originTerminal": {
+                    "type": "string",
+                    "example": "PSA Singapore Terminal"
+                  },
+                  "ETAOriginPort": {
+                    "type": "string",
+                    "example": "19 Jul 2020 13:30"
+                  },
+                  "ETDOriginPort": {
+                    "type": "string",
+                    "example": "20 Jul 2020 13:30"
+                  },
+                  "destinationPort": {
+                    "type": "string",
+                    "example": "Busan Port"
+                  },
+                  "destinationPortCode": {
+                    "type": "string",
+                    "example": "123472487AA"
+                  },
+                  "destinationTerminal": {
+                    "type": "string",
+                    "example": "TERMINAL 3 TANJUNG"
+                  },
+                  "ETADestinationPort": {
+                    "type": "string",
+                    "example": "19 Jul 2020 13:30"
+                  },
+                  "ETDDestinationPort": {
+                    "type": "string",
+                    "example": "20 Jul 2020 13:30"
+                  }
+                }
+              },
+              "containerCargoInfo": {
+                "type": "object",
+                "properties": {
+                  "containers": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "containerNumber": {
+                          "type": "string",
+                          "example": "CAMU893472348"
+                        },
+                        "sealNumber": {
+                          "type": "string",
+                          "example": "1231245"
+                        },
+                        "grossWeight": {
+                          "type": "string",
+                          "example": "15,648 KG"
+                        },
+                        "grossVolume": {
+                          "type": "string",
+                          "example": "45.16 M3"
+                        },
+                        "marksNos": {
+                          "type": "string",
+                          "example": "NIL MARK"
+                        },
+                        "containerSize": {
+                          "type": "string",
+                          "example": "40' HC"
+                        },
+                        "goodDesc": {
+                          "type": "string",
+                          "example": "135 PACKAGE(S)"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "pickupDropLocation": {
+                "type": "object",
+                "properties": {
+                  "emptyContainerPickup": {
+                    "type": "object",
+                    "properties": {
+                      "companyName": {
+                        "type": "string",
+                        "example": "COSCO SHIPPING Pte ltd"
+                      },
+                      "city": {
+                        "type": "string",
+                        "example": "CHANGI NORTHWAY"
+                      },
+                      "state": {
+                        "type": "string",
+                        "example": "CHANGI NORTHWAY"
+                      },
+                      "country": {
+                        "type": "string",
+                        "example": "Singapore"
+                      },
+                      "postalCode": {
+                        "type": "string",
+                        "example": "498772"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "abc@yahoo.com"
+                      },
+                      "phoneNumber": {
+                        "type": "string",
+                        "example": "216-344-5458"
+                      },
+                      "pickupDate": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "fullContainerReturn": {
+                    "type": "object",
+                    "properties": {
+                      "companyName": {
+                        "type": "string",
+                        "example": "COSCO SHIPPING Pte ltd"
+                      },
+                      "city": {
+                        "type": "string",
+                        "example": "CHANGI NORTHWAY"
+                      },
+                      "state": {
+                        "type": "string",
+                        "example": "CHANGI NORTHWAY"
+                      },
+                      "country": {
+                        "type": "string",
+                        "example": "Singapore"
+                      },
+                      "postalCode": {
+                        "type": "string",
+                        "example": "498772"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "abc@yahoo.com"
+                      },
+                      "phoneNumber": {
+                        "type": "string",
+                        "example": "216-344-5458"
+                      },
+                      "returnDate": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "freightCharges": {
+                "type": "object",
+                "properties": {
+                  "details": {
+                    "type": "string",
+                    "example": "SHRP REF"
+                  },
+                  "ratePer": {
+                    "type": "string",
+                    "example": "Container(SGD 123)"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "example": "SGD 18.34"
+                  },
+                  "prepaid": {
+                    "type": "string",
+                    "example": "Container (SGD 123)"
+                  },
+                  "collect": {
+                    "type": "string",
+                    "example": "SGD 33,44"
+                  },
+                  "declareValue": {
+                    "type": "string",
+                    "example": "No Value"
+                  }
+                }
+              },
+              "signatureStamp": {
+                "type": "object",
+                "properties": {
+                  "freightPayable": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "originalBL": {
+                    "type": "string",
+                    "example": "1"
+                  },
+                  "issuePlace": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "dateIssue": {
+                    "type": "string",
+                    "example": "14 Jul 2020"
+                  },
+                  "signedCarrier": {
+                    "type": "string",
+                    "example": "PAPANA"
+                  }
+                }
+              },
+              "cutOffDate": {
+                "type": "object",
+                "properties": {
+                  "documentCutOffDate": {
+                    "type": "string",
+                    "example": "19 Jul 2020 13:30"
+                  },
+                  "VGMCutOffDate": {
+                    "type": "string",
+                    "example": "19 Jul 2020 13:30"
+                  },
+                  "CustomCutOffDate": {
+                    "type": "string",
+                    "example": "19 Jul 2020 13:30"
+                  },
+                  "portCargoCutOffDate": {
+                    "type": "string",
+                    "example": "19 Jul 2020 13:30"
+                  }
+                }
+              },
+              "remarks": {
+                "type": "object",
+                "properties": {
+                  "details": {
+                    "type": "string",
+                    "example": "CONTAINER NET VOLUME"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "shipmentDetailsSchema": {
+        "type": "object",
+        "properties": {
+          "bookingDetails": {
+            "type": "object",
+            "properties": {
+              "bookingNo": {
+                "type": "string",
+                "example": "BN9873024"
+              },
+              "bookingRefNo": {
+                "type": "string",
+                "example": "BN9873024"
+              },
+              "agreementRefNo": {
+                "type": "string",
+                "example": "BN9873024"
+              },
+              "serviceMode": {
+                "type": "string",
+                "example": "CY/CY"
+              },
+              "incoterm": {
+                "type": "string",
+                "example": "CPT"
+              },
+              "shipmentType": {
+                "type": "string",
+                "example": "FCL"
+              },
+              "bookingDate": {
+                "type": "string",
+                "example": "14 Jul 2020"
+              },
+              "BLNumber": {
+                "type": "string",
+                "example": "BN783472834"
+              },
+              "billOfLadingNo": {
+                "type": "string",
+                "example": "BRN9873024"
+              },
+              "carriageBy": {
+                "type": "string",
+                "example": "CY/CFS"
+              },
+              "remarks": {
+                "type": "string",
+                "example": "SHPR12345"
+              },
+              "bookingServiceProvider": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Ben Clarke"
+                  },
+                  "companyName": {
+                    "type": "string",
+                    "example": "COSCO SHIPPING Pte ltd"
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": "CHANGI NORTHWAY"
+                  },
+                  "state": {
+                    "type": "string",
+                    "example": "CHANGI NORTHWAY"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "postalCode": {
+                    "type": "string",
+                    "example": "498772"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "abc@yahoo.com"
+                  },
+                  "phoneNumber": {
+                    "example": "216-344-5458"
+                  }
+                }
+              },
+              "bookingParty": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Ben Clarke"
+                  },
+                  "companyName": {
+                    "type": "string",
+                    "example": "COSCO SHIPPING Pte ltd"
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": "CHANGI NORTHWAY"
+                  },
+                  "state": {
+                    "type": "string",
+                    "example": "CHANGI NORTHWAY"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "postalCode": {
+                    "type": "string",
+                    "example": "498772"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "abc@yahoo.com"
+                  },
+                  "phoneNumber": {
+                    "type": "string",
+                    "example": "216-344-5458"
+                  }
+                }
+              }
+            }
+          },
+          "involvedPartyDetails": {
+            "type": "object",
+            "properties": {
+              "shipper": {
+                "type": "object",
+                "properties": {
+                  "companyName": {
+                    "type": "string",
+                    "example": "Amazon Singapore pte ltd"
+                  },
+                  "companyAddress": {
+                    "type": "string",
+                    "example": "200 Bukit Timah"
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "state": {
+                    "type": "string",
+                    "example": "Gaylang"
+                  },
+                  "postalCode": {
+                    "type": "string",
+                    "example": "10000"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "emailAddress": {
+                    "type": "string",
+                    "example": "trames@gmail.com"
+                  },
+                  "contactNumber": {
+                    "type": "string",
+                    "example": "12385464"
+                  }
+                }
+              },
+              "consignee": {
+                "type": "object",
+                "properties": {
+                  "companyName": {
+                    "type": "string",
+                    "example": "Amazon Singapore pte ltd"
+                  },
+                  "companyAddress": {
+                    "type": "string",
+                    "example": "200 Bukit Timah"
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "state": {
+                    "type": "string",
+                    "example": "Gaylang"
+                  },
+                  "postalCode": {
+                    "type": "string",
+                    "example": "10000"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "emailAddress": {
+                    "type": "string",
+                    "example": "trames@gmail.com"
+                  },
+                  "contactNumber": {
+                    "type": "string",
+                    "example": "12385464"
+                  }
+                }
+              },
+              "forwardingAgent": {
+                "type": "object",
+                "properties": {
+                  "companyName": {
+                    "type": "string",
+                    "example": "Amazon Singapore pte ltd"
+                  },
+                  "companyAddress": {
+                    "type": "string",
+                    "example": "200 Bukit Timah"
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "state": {
+                    "type": "string",
+                    "example": "Gaylang"
+                  },
+                  "postalCode": {
+                    "type": "string",
+                    "example": "10000"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "emailAddress": {
+                    "type": "string",
+                    "example": "trames@gmail.com"
+                  },
+                  "contactNumber": {
+                    "type": "string",
+                    "example": "12385464"
+                  }
+                }
+              },
+              "notifyParty": {
+                "type": "object",
+                "properties": {
+                  "companyName": {
+                    "type": "string",
+                    "example": "Amazon Singapore pte ltd"
+                  },
+                  "companyAddress": {
+                    "type": "string",
+                    "example": "200 Bukit Timah"
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "state": {
+                    "type": "string",
+                    "example": "Gaylang"
+                  },
+                  "postalCode": {
+                    "type": "string",
+                    "example": "10000"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "emailAddress": {
+                    "type": "string",
+                    "example": "trames@gmail.com"
+                  },
+                  "contactNumber": {
+                    "type": "string",
+                    "example": "12385464"
+                  }
+                }
+              },
+              "forRelease": {
+                "type": "object",
+                "properties": {
+                  "companyName": {
+                    "type": "string",
+                    "example": "Amazon Singapore pte ltd"
+                  },
+                  "companyAddress": {
+                    "type": "string",
+                    "example": "200 Bukit Timah"
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "state": {
+                    "type": "string",
+                    "example": "Gaylang"
+                  },
+                  "postalCode": {
+                    "type": "string",
+                    "example": "10000"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "emailAddress": {
+                    "type": "string",
+                    "example": "trames@gmail.com"
+                  },
+                  "contactNumber": {
+                    "type": "string",
+                    "example": "12385464"
+                  }
+                }
+              }
+            }
+          },
+          "vesselRouteInfo": {
+            "type": "object",
+            "properties": {
+              "vesselName": {
+                "type": "string",
+                "example": "ET3489234"
+              },
+              "voyage": {
+                "type": "string",
+                "example": "Jurney"
+              },
+              "imo": {
+                "type": "string",
+                "example": "234834575PT"
+              },
+              "placeReceipt": {
+                "type": "string",
+                "example": "Singapore"
+              },
+              "placeDelivery": {
+                "type": "string",
+                "example": "Korea"
+              },
+              "carrierName": {
+                "type": "string",
+                "example": "COSCO SHIPPING"
+              },
+              "SCACCode": {
+                "type": "string",
+                "example": "COSU"
+              },
+              "originPort": {
+                "type": "string",
+                "example": "Singapore port"
+              },
+              "originPortCode": {
+                "type": "string",
+                "example": "123472487AA"
+              },
+              "originTerminal": {
+                "type": "string",
+                "example": "PSA Singapore Terminal"
+              },
+              "ETAOriginPort": {
+                "type": "string",
+                "example": "19 Jul 2020 13:30"
+              },
+              "ETDOriginPort": {
+                "type": "string",
+                "example": "20 Jul 2020 13:30"
+              },
+              "destinationPort": {
+                "type": "string",
+                "example": "Busan Port"
+              },
+              "destinationPortCode": {
+                "type": "string",
+                "example": "123472487AA"
+              },
+              "destinationTerminal": {
+                "type": "string",
+                "example": "TERMINAL 3 TANJUNG"
+              },
+              "ETADestinationPort": {
+                "type": "string",
+                "example": "19 Jul 2020 13:30"
+              },
+              "ETDDestinationPort": {
+                "type": "string",
+                "example": "20 Jul 2020 13:30"
+              }
+            }
+          },
+          "containerCargoInfo": {
+            "type": "object",
+            "properties": {
+              "containers": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "containerNumber": {
+                      "type": "string",
+                      "example": "CAMU893472348"
+                    },
+                    "sealNumber": {
+                      "type": "string",
+                      "example": "1231245"
+                    },
+                    "grossWeight": {
+                      "type": "string",
+                      "example": "15,648 KG"
+                    },
+                    "grossVolume": {
+                      "type": "string",
+                      "example": "45.16 M3"
+                    },
+                    "marksNos": {
+                      "type": "string",
+                      "example": "NIL MARK"
+                    },
+                    "containerSize": {
+                      "type": "string",
+                      "example": "40' HC"
+                    },
+                    "goodDesc": {
+                      "type": "string",
+                      "example": "135 PACKAGE(S)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "pickupDropLocation": {
+            "type": "object",
+            "properties": {
+              "emptyContainerPickup": {
+                "type": "object",
+                "properties": {
+                  "companyName": {
+                    "type": "string",
+                    "example": "COSCO SHIPPING Pte ltd"
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": "CHANGI NORTHWAY"
+                  },
+                  "state": {
+                    "type": "string",
+                    "example": "CHANGI NORTHWAY"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "postalCode": {
+                    "type": "string",
+                    "example": "498772"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "abc@yahoo.com"
+                  },
+                  "phoneNumber": {
+                    "type": "string",
+                    "example": "216-344-5458"
+                  },
+                  "pickupDate": {
+                    "type": "string"
+                  }
+                }
+              },
+              "fullContainerReturn": {
+                "type": "object",
+                "properties": {
+                  "companyName": {
+                    "type": "string",
+                    "example": "COSCO SHIPPING Pte ltd"
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": "CHANGI NORTHWAY"
+                  },
+                  "state": {
+                    "type": "string",
+                    "example": "CHANGI NORTHWAY"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "Singapore"
+                  },
+                  "postalCode": {
+                    "type": "string",
+                    "example": "498772"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "abc@yahoo.com"
+                  },
+                  "phoneNumber": {
+                    "type": "string",
+                    "example": "216-344-5458"
+                  },
+                  "returnDate": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "freightCharges": {
+            "type": "object",
+            "properties": {
+              "details": {
+                "type": "string",
+                "example": "SHRP REF"
+              },
+              "ratePer": {
+                "type": "string",
+                "example": "Container(SGD 123)"
+              },
+              "amount": {
+                "type": "string",
+                "example": "SGD 18.34"
+              },
+              "prepaid": {
+                "type": "string",
+                "example": "Container (SGD 123)"
+              },
+              "collect": {
+                "type": "string",
+                "example": "SGD 33,44"
+              },
+              "declareValue": {
+                "type": "string",
+                "example": "No Value"
+              }
+            }
+          },
+          "signatureStamp": {
+            "type": "object",
+            "properties": {
+              "freightPayable": {
+                "type": "string",
+                "example": "Singapore"
+              },
+              "originalBL": {
+                "type": "string",
+                "example": "1"
+              },
+              "issuePlace": {
+                "type": "string",
+                "example": "Singapore"
+              },
+              "dateIssue": {
+                "type": "string",
+                "example": "14 Jul 2020"
+              },
+              "signedCarrier": {
+                "type": "string",
+                "example": "PAPANA"
+              }
+            }
+          },
+          "cutOffDate": {
+            "type": "object",
+            "properties": {
+              "documentCutOffDate": {
+                "type": "string",
+                "example": "19 Jul 2020 13:30"
+              },
+              "VGMCutOffDate": {
+                "type": "string",
+                "example": "19 Jul 2020 13:30"
+              },
+              "CustomCutOffDate": {
+                "type": "string",
+                "example": "19 Jul 2020 13:30"
+              },
+              "portCargoCutOffDate": {
+                "type": "string",
+                "example": "19 Jul 2020 13:30"
+              }
+            }
+          },
+          "remarks": {
+            "type": "object",
+            "properties": {
+              "details": {
+                "type": "string",
+                "example": "CONTAINER NET VOLUME"
+              }
+            }
+          }
+        }
+      },
+      "addNewTaskSchema": {
+        "type": "object",
+        "properties": {
+          "taskName": {
+            "type": "string",
+            "example": "Booking Details"
+          },
+          "typeOfTask": {
+            "type": "string",
+            "example": "event"
+          },
+          "section": {
+            "type": "string",
+            "example": "Booking Confirmed"
+          },
+          "dateType": {
+            "type": "string",
+            "example": "specific_date"
+          },
+          "dueDate": {
+            "type": "number",
+            "example": 123478235
+          },
+          "eventType": {
+            "type": "string",
+            "example": "Vessel departure from first POL"
+          },
+          "dayAdjust": {
+            "type": "number",
+            "example": 1
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "shipper"
+            }
+          }
+        }
+      },
+      "createSectionSchema": {
+        "type": "object",
+        "properties": {
+          "sectionName": {
+            "type": "string",
+            "example": "Booking Details"
+          },
+          "sectionItems": {
+            "type": "object"
+          }
+        }
+      },
+      "taskSchema": {
+        "type": "object",
+        "properties": {
+          "taskName": {
+            "type": "string",
+            "example": "Booking Details"
+          },
+          "typeOfTask": {
+            "type": "string",
+            "example": "event"
+          },
+          "section": {
+            "type": "string",
+            "example": "Booking Details"
+          },
+          "dateType": {
+            "type": "string",
+            "example": "specific_date"
+          },
+          "dueDate": {
+            "type": "number",
+            "example": 123478235
+          },
+          "eventType": {
+            "type": "string",
+            "example": "Vessel departure from first POL"
+          },
+          "dayAdjust": {
+            "type": "number",
+            "example": 1
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "shipper"
+            }
+          },
+          "assignee": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "5f6971f34e441f0bccb13afa"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Yoshida"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "cymcc@gmail.com"
+                },
+                "contactNumber": {
+                  "type": "string",
+                  "example": "contactNumber"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "active"
+                },
+                "orgRole": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "5f6971f34e441f0bccb13afa"
+                      },
+                      "roleName": {
+                        "type": "string",
+                        "example": "Member"
+                      }
+                    }
+                  }
+                },
+                "teamRole": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "5f6971f34e441f0bccb13afa"
+                      },
+                      "roleName": {
+                        "type": "string",
+                        "example": "Consignee"
+                      }
+                    }
+                  }
+                },
+                "totalTeams": {
+                  "type": "number",
+                  "example": 0
+                },
+                "base": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "taskStatus": {
+            "type": "string",
+            "example": "pending"
+          },
+          "action": {
+            "type": "number",
+            "example": 2347234798
+          }
+        }
+      },
+      "activeShipmentSectionSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Task Details"
+          },
+          "data": {
+            "type": "object"
+          }
+        }
+      },
+      "taskManagementSchema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Task Details"
+            },
+            "data": {
+              "type": "object",
+              "properties": {
+                "taskName": {
+                  "type": "string",
+                  "example": "Booking Details"
+                },
+                "typeOfTask": {
+                  "type": "string",
+                  "example": "event"
+                },
+                "section": {
+                  "type": "string",
+                  "example": "Booking Details"
+                },
+                "dateType": {
+                  "type": "string",
+                  "example": "specific_date"
+                },
+                "dueDate": {
+                  "type": "number",
+                  "example": 123478235
+                },
+                "eventType": {
+                  "type": "string",
+                  "example": "Vessel departure from first POL"
+                },
+                "dayAdjust": {
+                  "type": "number",
+                  "example": 1
+                },
+                "roles": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": "shipper"
+                  }
+                },
+                "assignee": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "5f6971f34e441f0bccb13afa"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Yoshida"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "cymcc@gmail.com"
+                      },
+                      "contactNumber": {
+                        "type": "string",
+                        "example": "contactNumber"
+                      },
+                      "status": {
+                        "type": "string",
+                        "example": "active"
+                      },
+                      "orgRole": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "example": "5f6971f34e441f0bccb13afa"
+                            },
+                            "roleName": {
+                              "type": "string",
+                              "example": "Member"
+                            }
+                          }
+                        }
+                      },
+                      "teamRole": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "example": "5f6971f34e441f0bccb13afa"
+                            },
+                            "roleName": {
+                              "type": "string",
+                              "example": "Consignee"
+                            }
+                          }
+                        }
+                      },
+                      "totalTeams": {
+                        "type": "number",
+                        "example": 0
+                      },
+                      "base": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                },
+                "taskStatus": {
+                  "type": "string",
+                  "example": "pending"
+                },
+                "action": {
+                  "type": "number",
+                  "example": 2347234798
+                }
+              }
+            }
+          }
+        }
+      },
+      "IssuesSchema": {
+        "type": "object",
+        "properties": {
+          "shipmentId": {
+            "type": "string",
+            "example": "5f6971f34e441f0bccb13afa"
+          },
+          "title": {
+            "type": "string",
+            "example": "Arriving Vessel is get delayed by 4 days because of weather"
+          },
+          "description": {
+            "type": "string",
+            "example": "If its urgent shipment then Booking party can do the new booking and we will not charge"
+          },
+          "status": {
+            "type": "string",
+            "example": "open"
+          },
+          "members": {
+            "type": "array",
+            "example": [
+              "yohiko@gmail.com",
+              "shisuy@gmail.com"
+            ]
+          },
+          "base": {
+            "type": "object",
+            "example": {
+              "createdBy": "James Doe",
+              "createdDate": 1602144467956,
+              "updatedBy": "James Doe",
+              "updatedDate": 1602144467956,
+              "delete": false
+            }
+          }
+        }
+      },
+      "IssuesCreateSchema": {
+        "type": "object",
+        "properties": {
+          "shipmentId": {
+            "type": "string",
+            "example": "5f6971f34e441f0bccb13afa"
+          },
+          "title": {
+            "type": "string",
+            "example": "Arriving Vessel is get delayed by 4 days because of weather"
+          },
+          "description": {
+            "type": "string",
+            "example": "If its urgent shipment then Booking party can do the new booking and we will not charge"
+          },
+          "base": {
+            "type": "object",
+            "example": {
+              "createdBy": "James Doe"
+            }
+          }
+        }
+      },
+      "IssuesUpdateSchema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Arriving Vessel is get delayed by 4 days because of weather"
+          },
+          "description": {
+            "type": "string",
+            "example": "If its urgent shipment then Booking party can do the new booking and we will not charge"
+          },
+          "status": {
+            "type": "string",
+            "example": "open"
+          }
+        }
+      },
+      "IssuesCommentSchema": {
+        "type": "object",
+        "properties": {
+          "issueId": {
+            "type": "string",
+            "example": "5f6971f34e441f0bccb13afa"
+          },
+          "content": {
+            "type": "string",
+            "example": "Arriving Vessel is get delayed by 4 days because of weather"
+          },
+          "img": {
+            "type": "string",
+            "example": "this is the url to the img src"
+          },
+          "members": {
+            "type": "string",
+            "example": "yohiko@gmail.com"
+          },
+          "base": {
+            "type": "object",
+            "example": {
+              "createdBy": "James Doe",
+              "createdDate": 1602144467956,
+              "updatedBy": "James Doe",
+              "updatedDate": 1602144467956,
+              "delete": false
+            }
+          }
+        }
+      },
+      "IssuesListSchema": {
+        "type": "object",
+        "properties": {
+          "currentPage": {
+            "type": "number",
+            "example": 0
+          },
+          "totalPage": {
+            "type": "number",
+            "example": 1
+          },
+          "items": {
+            "type": "array",
+            "example": [
+              {
+                "_id": "5f6971f34e441f0bccb13afa",
+                "shipmentId": "5f7302b886699310d4d2163a",
+                "title": "Arriving Vessel is get delayed by 4 days because of weather",
+                "description": "If its urgent shipment then Booking party can do the new booking and we will not charge",
+                "status": "open",
+                "members": [
+                  "yohiko@gmail.com",
+                  "kingofrap@gmail.com"
+                ],
+                "base": {
+                  "createdBy": "James Doe",
+                  "createdDate": 1602144467956,
+                  "updatedBy": "James Doe",
+                  "updatedDate": 1602144467956,
+                  "delete": false
+                }
+              },
+              {
+                "_id": "5f7442d9c8accd3c143099e1",
+                "shipmentId": "5f7302b886699310d4d2163a",
+                "title": "Shipment Booking",
+                "description": "If its urgent shipment then Booking party can do the new booking and we will not charge",
+                "status": "open",
+                "members": [
+                  "shisuy@gmail.com"
+                ],
+                "base": {
+                  "createdBy": "James Doe",
+                  "createdDate": 1602144467956,
+                  "updatedBy": "James Doe",
+                  "updatedDate": 1602144467956,
+                  "delete": false
+                }
+              }
+            ]
+          }
+        }
+      },
+      "DocumentSchema": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "5f7302b886699310d4d2163a"
+          },
+          "fileName": {
+            "type": "string",
+            "example": "bookingconfirm_v1.pdf"
+          },
+          "uploadedBy": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "5f7302b886699310d4d2163a"
+              },
+              "name": {
+                "type": "string",
+                "example": "James Doe"
+              }
+            }
+          },
+          "uploadTime": {
+            "type": "number",
+            "example": 1602144467956
+          }
+        }
+      },
+      "DocumentAddSchema": {
+        "type": "object",
+        "properties": {
+          "documentTaskId": {
+            "type": "string",
+            "example": "5f7302b886699310d4d2163a"
+          },
+          "fileName": {
+            "type": "string",
+            "example": "bookingconfirm_v1.pdf"
+          },
+          "uploadedBy": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "5f7302b886699310d4d2163a"
+              },
+              "name": {
+                "type": "string",
+                "example": "James Doe"
+              }
+            }
+          },
+          "uploadTime": {
+            "type": "number",
+            "example": 1602144467956
+          }
+        }
+      },
+      "DocumentTaskListSchema": {
+        "type": "object",
+        "properties": {
+          "documentTaskId": {
+            "type": "string",
+            "example": "5f7302b886699310d4d2163a"
+          },
+          "documentTaskName": {
+            "type": "string",
+            "example": "Book Information"
+          },
+          "numberOfDocs": {
+            "type": "number",
+            "example": 1
+          },
+          "uploadedBy": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "5f7302b886699310d4d2163a"
+              },
+              "name": {
+                "type": "string",
+                "example": "John Doe"
+              }
+            }
+          },
+          "uploadTime": {
+            "type": "number",
+            "example": 1602144467956
+          },
+          "assignee": {
+            "type": "array",
+            "items": {
+              "types": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "5f7302b886699310d4d2163a"
+                },
+                "avatar": {
+                  "type": "string",
+                  "example": "this is the url"
+                }
+              }
+            }
+          }
+        }
+      },
+      "DocumentListSchema": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "example": "bookingconfirm_v1.pdf"
+          },
+          "uploadedTime": {
+            "type": "number",
+            "example": 1602144467956
+          },
+          "uploadedBy": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "5f7302b886699310d4d2163a"
+              },
+              "name": {
+                "type": "string",
+                "example": "John Doe"
+              }
+            }
+          },
+          "assignee": {
+            "type": "array",
+            "items": {
+              "types": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "5f7302b886699310d4d2163a"
+                },
+                "avatar": {
+                  "type": "string",
+                  "example": "this is the url"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ArrivalPort": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Carrier": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "DeparturePort": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Event": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "Location": {
+        "type": "object",
+        "properties": {
+          "lat": {
+            "type": "string"
+          },
+          "lon": {
+            "type": "string"
+          }
+        }
+      },
+      "Route": {
+        "type": "object",
+        "properties": {
+          "step": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "object"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Event"
+            }
+          },
+          "status": {
+            "type": "string"
+          },
+          "routes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Route2"
+            }
+          }
+        }
+      },
+      "Route2": {
+        "type": "object",
+        "properties": {
+          "lat": {
+            "type": "string"
+          },
+          "lon": {
+            "type": "string"
+          }
+        }
+      },
+      "TrackShipmentResponse": {
+        "type": "object",
+        "properties": {
+          "containerNo": {
+            "type": "string"
+          },
+          "carrier": {
+            "$ref": "#/components/schemas/Carrier"
+          },
+          "departurePort": {
+            "$ref": "#/components/schemas/DeparturePort"
+          },
+          "arrivalPort": {
+            "$ref": "#/components/schemas/ArrivalPort"
+          },
+          "routes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Route"
+            }
+          }
+        }
+      },
+      "ArrivalPort2": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "DeparturePort2": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "MyArray": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "providerLogo": {
+            "type": "string"
+          },
+          "departurePort": {
+            "$ref": "#/components/schemas/DeparturePort"
+          },
+          "transhipped": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Transhipped"
+            }
+          },
+          "arrivalPort": {
+            "$ref": "#/components/schemas/ArrivalPort"
+          },
+          "departureDate": {
+            "type": "string"
+          },
+          "arrivalDate": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "durationNote": {
+            "type": "string"
+          },
+          "routes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SRoute"
+            }
+          }
+        }
+      },
+      "SRoute": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string"
+          },
+          "voyage": {
+            "type": "string"
+          },
+          "service": {
+            "type": "string"
+          },
+          "departurePort": {
+            "$ref": "#/components/schemas/DeparturePort2"
+          },
+          "arrivalPort": {
+            "$ref": "#/components/schemas/ArrivalPort2"
+          },
+          "departureDate": {
+            "type": "string"
+          },
+          "arrivalDate": {
+            "type": "string"
+          }
+        }
+      },
+      "Transhipped": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+
+    }
+  }
+}

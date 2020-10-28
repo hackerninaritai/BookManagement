@@ -1,4 +1,4 @@
 import create from './create'
-import { findAll, findByNameEn } from './find'
+import find from './find'
 
-export { create, findAll, findByNameEn };
+export { create, find };
