@@ -6,6 +6,7 @@ const create: RequestHandler = async (req: Request, res: Response, next) => {
         res.send(await CategoryService.createCategory(req.body.nameVn, req.body.nameEn))
     }
     catch (e) {
+        console.log(e);
         res.status(500).send({
             message: "error occured"
         });

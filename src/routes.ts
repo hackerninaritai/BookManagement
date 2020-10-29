@@ -13,12 +13,15 @@ const router = express.Router();
 
 router.post('/category/create', CategoryController.create)
 router.get('/category', CategoryController.find)
-
+router.post('/category/update', CategoryController.update)
 
 router.post('/author/create', AuthorController.create)
 router.get('/author', AuthorController.find)
 
+router.post('/book/create', BookController.create)
 router.get('/book', BookController.find)
+router.post('/book/save', BookController.save)
+
 
 
 router.use('/dev/api-docs', swaggerUi.serve);

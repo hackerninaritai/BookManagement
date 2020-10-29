@@ -1,8 +1,8 @@
 
 
 import { Document, model, Model, Schema } from "mongoose";
-import Author, { AuthorDocument } from "./author.model";
-import Category, { CategoryDocument } from "./category.model";
+import { AuthorDocument } from "./author.model";
+import { CategoryDocument } from "./category.model";
 
 export class BookDocument extends Document {
     name: String;
@@ -19,15 +19,25 @@ const schema = new Schema({
     },
     nameEn: String,
     price: Number,
-    categories: [{ type: Category, default: [] }],
-    authors: [{ type: Author, default: [] }],
+    categories: [{ type: Schema.Types.ObjectId, ref: "Category" }],
+    authors: [{ type: Schema.Types.ObjectId, ref: "Author" }],
 
 });
 
 const Book: Model<BookDocument> = model<BookDocument, Model<BookDocument>>('Book', schema);
 
 export const findAll = async () => {
-    return await Book.find();
+    return await Book.find().populate("authors");
 }
+
+export const createBook = async (book: BookDocument[]): Promise<BookDocument[]> => {
+    try {
+        console.log(`Dao: ${book[0].name}`)
+        return Book.create(book)
+    }
+    catch (e) {
+        console.log(e)
+    }
+};
 
 export default Book;

@@ -24,3 +24,32 @@ NodeJs ExpressJs TypeScript Mongoose ODM mapping CRUD Example
 - Use mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true})
     - useNewUrlParser:
     - useUnifiedTopology:
+
+# To persist an object, we can use create or save:
+    - The .save() is an instance method of the model.
+    - The create() is a static method of the model. It takse an object as the first parameter.
+
+    var mongoose = require('mongoose');
+
+    var notificationSchema = mongoose.Schema({
+    
+    });
+
+    var Notification = mongoose.model('Notification', notificationsSchema);
+
+
+    function saveNotification1(data) {
+        var notification = new Notification(data);
+        notification.save(function (err) {
+            if (err) return handleError(err);
+            // saved!
+        })
+    }
+
+    function saveNotification2(data) {
+        Notification.create(data, function (err, small) {
+        if (err) return handleError(err);
+        // saved!
+        })
+    }
+# M

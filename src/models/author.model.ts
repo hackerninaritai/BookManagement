@@ -4,10 +4,11 @@ export class AuthorDocument extends Document {
     name: String;
     dateOfBirth: Date;
     country: String;
-    gender: String
+    gender: String;
+    pseudonyms: Array<Object>;
 }
 
-const schema = new Schema({
+export const schema = new Schema({
     name: String,
     dateOfBirth: Date,
     country: String,
@@ -15,12 +16,16 @@ const schema = new Schema({
         type: String,
         default: "Not specified",
         enum: { values: ["Male", "Female", "Transgender", "non-binary", "Not specified"] }
+    },
+    pseudonyms: {
+        type: Array,
+        default: []
     }
 
 });
 
-export const create = async (name: String, dateOfBirth: Date, country: String, gender: any) => {
-    await Author.create({ name, dateOfBirth, country, gender });
+export const create = async (name: String, dateOfBirth: Date, country: String, gender: any, pseudonyms: any) => {
+    await Author.create({ name, dateOfBirth, country, gender, pseudonyms });
 }
 
 export const findAll = async () => {

@@ -1,4 +1,4 @@
-import { create, findAll, findByNameEn } from "../models/category.model"
+import { create, findAll, findByNameEn, findOneByIdAndUpdate } from "../models/category.model"
 
 class CategoryService {
     public async createCategory(nameVn: String, nameEn: String) {
@@ -11,6 +11,9 @@ class CategoryService {
         return await findAll();
     }
 
+    public async findOneByIdAndUpdate(data: Object){
+        return await findOneByIdAndUpdate(data);
+    }
 }
 
 export = new CategoryService();
